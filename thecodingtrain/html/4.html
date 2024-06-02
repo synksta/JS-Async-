@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="../../css/tailwind/output.css" rel="stylesheet" />
+		<title>Document</title>
+	</head>
+	<body>
+		<h1>Heyyy</h1>
+		<p>
+			latitude: <span id="lat"></span>&deg;<br />
+			longitude: <span id="lon"></span>&deg;
+		</p>
+		<script>
+			if ('geolocation' in navigator) {
+				console.log('yaaay')
+				navigator.geolocation.getCurrentPosition(async (position) => {
+					console.log(position)
+					const lat = position.coords.latitude
+					const lon = position.coords.longitude
+
+					document.getElementById('lat').textContent = lat
+					document.getElementById('lon').textContent = lon
+
+					const data = { lat, lon }
+
+					const options = {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(data),
+					}
+
+					const res = await fetch('/api', options)
+					const json = await res.json()
+					console.log(json)
+				})
+			} else {
+				console.log('no yaaay')
+			}
+		</script>
+	</body>
+</html>

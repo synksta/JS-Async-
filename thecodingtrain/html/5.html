@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="../../css/tailwind/output.css"
+			type="text/css"
+			rel="stylesheet"
+		/>
+		<title>Document</title>
+	</head>
+	<body>
+		<h1>Heyyy</h1>
+
+		<script>
+			async function getData() {
+				const res = await fetch('/api')
+				const data = await res.json()
+
+				for (item of data) {
+					const root = document.createElement('div')
+
+					const lat = document.createElement('div')
+					const lon = document.createElement('div')
+					const dat = document.createElement('div')
+
+					lat.textContent = `latitude: ${item.lat}&deg;`
+					lon.textContent = `longitude: ${item.lon}&deg;`
+					dat.textContent = `date: ${new Date(item.timestamp).toLocaleString()}`
+
+					root.append(lat, lon, dat)
+
+					document.body.append(root)
+				}
+
+				console.log(data)
+			}
+
+			getData()
+		</script>
+	</body>
+</html>

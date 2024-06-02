@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+			integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+			crossorigin=""
+		/>
+		<link href="../../css/tailwind/output.css" rel="stylesheet" />
+		<title>Async</title>
+	</head>
+	<body>
+		<h1>Where is the ISS?</h1>
+		<p>
+			latitude: <span id="lat"></span><br />
+			longitude: <span id="lon"></span>
+		</p>
+
+		<div id="map"></div>
+		<script
+			src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+			integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+			crossorigin=""
+		></script>
+		<script>
+			const tileURL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+			const attribution =
+				'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+
+			const tiles = L.tileLayer(tileURL, { attribution })
+
+			const map = L.map('map').setView([0, 0], 1)
+
+			const markerIcon = L.icon({
+				iconUrl: '../../img/vz.jpeg',
+				iconSize: [50, 50],
+				shadowAnchor: [25, 25],
+			})
+
+			const marker = L.marker([0, 0], { icon: markerIcon }).addTo(map)
+
+			tiles.addTo(map)
+
+			const api_url = 'https://api.wheretheiss.at/v1/satellites/25544'
+			async function getAPI() {
+				const response = await fetch(api_url)
+				const data = await response.json()
+				const { latitude, longitude } = data
+
+				document.getElementById('lat').textContent = latitude
+				document.getElementById('lon').textContent = longitude
+
+				console.log(latitude)
+				console.log(longitude)
+
+				marker.setLatLng([latitude, longitude])
+				map.setView([latitude, longitude], 5)
+				// L.marker([latitude, longitude]).addTo(map)
+			}
+
+			getAPI()
+
+			setInterval(getAPI, 1000)
+		</script>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="../../css/tailwind/output.css" rel="stylesheet" />
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<title>Async</title>
+	</head>
+	<body>
+		<canvas class="mx-48" id="chart" width="900px" height="400px"></canvas>
+
+		<script>
+			const createChart = async () => {
+				const data = await getData()
+
+				const ctx = document.getElementById('chart')
+				const chart = new Chart(ctx, {
+					type: 'line',
+					data: {
+						labels: data.years,
+						datasets: [
+							{
+								label: 'Global Average Temperature',
+								data: data.temps,
+								fill: false,
+								borderWidth: 1,
+							},
+						],
+					},
+					options: {
+						scales: {
+							y: {
+								beginAtZero: false,
+							},
+						},
+					},
+				})
+			}
+
+			createChart()
+		</script>
+	</body>
+</html>

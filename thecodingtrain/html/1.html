@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="../../css/tailwind/output.css" rel="stylesheet" />
+		<title>Async</title>
+	</head>
+	<body>
+		<img id="some_image" />
+
+		<script>
+			console.log('About to fetch data...')
+
+			const getImage = async () => {
+				const response = await fetch('../img/vz.jpeg')
+				const blob = await response.blob()
+				console.log('Data is fetched')
+				document.getElementById('some_image').src = URL.createObjectURL(blob)
+			}
+
+			const getData = async () => {
+				const response = await fetch('../data/temperature_data.csv')
+				const data = await response.text()
+
+				const years = []
+				const temps = []
+
+				console.log('Data is fetched')
+
+				const table = data.split('\n').slice(1)
+				table.forEach((row) => {
+					const cols = row.split(',')
+					const year = cols[0]
+					years.push(year)
+					const temp = parseFloat(cols[1]) + 14
+					temps.push(temp)
+					console.log(year, temp)
+				})
+				return { years, temps }
+			}
+
+			getImage()
+		</script>
+
+		<!-- <script src="js/index.js"></script> -->
+	</body>
+</html>

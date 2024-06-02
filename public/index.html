@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="./style/output.css" type="text/css" rel="stylesheet" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div class="p-10 allCenterWrapper text-stone-400">
+			<div class="flex flex-col gap-2 shadow-xl">
+				<div class="container flex justify-center bg-gray-700">
+					<p class="text-5xl font-extrabold text-center text-gray-900">
+						Opinion
+					</p>
+				</div>
+				<div class="container bg-gray-700 shadow-xl">
+					<div class="grid grid-rows-3 gap-4 lg:grid-cols-5 lg:grid-rows-1">
+						<input
+							class="container text-lg font-bold text-center placeholder-gray-700 bg-gray-900 appearance-none animated focus:outline-none focus:border-stone-400 focus:placeholder-stone-400 text-stone-400"
+							id="usernameInput"
+							type="text"
+							placeholder="Who are you"
+						/>
+						<input
+							class="container text-lg font-bold text-center placeholder-gray-700 bg-gray-900 appearance-none lg:col-span-3 animated focus:outline-none focus:border-stone-400 focus:placeholder-stone-400 text-stone-400"
+							id="messageInput"
+							type="textInput"
+							placeholder="Your thought"
+						/>
+						<button
+							class="p-4 mb-0 text-lg font-bold text-gray-900 border-4 border-t-2 border-b-8 border-gray-900 hover:border-t-4 hover:mb-0.5 hover:mt-0 hover:border-b-4 rounded-2xl active:border-b-2 active:border-t-8 active:mb-0 active:mt-0"
+							type="button"
+							id="sendButton"
+						>
+							Send
+						</button>
+
+						<!-- <button
+							class="p-4 mb-0 text-lg font-bold text-gray-900 border-4 border-t-2 border-b-8 border-gray-900 hover:border-t-4 hover:mb-0.5 hover:mt-0 hover:border-b-4 rounded-2xl active:bg-gray-900 active:text-stone-400 active:border-gray-900"
+							type="button"
+						>
+							Send
+						</button> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="./index.js"></script>
+	</body>
+</html>
